@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Surat Untukmu 💌</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #fff0f0;
+            color: #5e3a3a;
+            line-height: 1.8;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 90%;
+            width: 600px;
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(255, 105, 140, 0.2);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        h1 {
+            color: #ff6b8b;
+            margin-bottom: 10px;
+            font-size: 24px;
+            animation: fadeIn 2s;
+        }
+        .love-letter {
+            background: #fff9f9;
+            border-left: 4px solid #ff6b8b;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: left;
+            border-radius: 0 10px 10px 0;
+            animation: slideIn 1.5s ease-out;
+        }
+        .foto-kita {
+            width: auto;
+            max-width: 100%;
+            max-height: 400px;
+            border-radius: 15px;
+            margin: 5px 0;
+            border: 3px solid white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            animation: zoomIn 1s;
+        }
+        .music-section {
+            margin: 5px 0 15px 0;
+        }
+        .play-btn {
+            background: linear-gradient(45deg, #ff6b8b, #ff8e53);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 14px;
+            cursor: pointer;
+            margin: 5px 0;
+            transition: all 0.3s;
+            animation: bounce 2s infinite;
+        }
+        .surprise-btn {
+            background: linear-gradient(45deg, #6b8bff, #53ff8e);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            cursor: pointer;
+            margin: 10px 0;
+            transition: all 0.3s;
+        }
+        .hearts {
+            position: absolute;
+            font-size: 20px;
+            opacity: 0.6;
+            animation: float 5s infinite;
+            z-index: -1;
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.3);
+            z-index: 100;
+            text-align: center;
+            max-width: 80%;
+            animation: fadeIn 0.5s;
+        }
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 99;
+        }
+        .popup-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideIn {
+            from { transform: translateX(-20px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes zoomIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        @keyframes bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+            }
+            h1 {
+                font-size: 20px;
+            }
+            .love-letter {
+                padding: 10px;
+                font-size: 14px;
+            }
+            .foto-kita {
+                max-height: 300px;
+            }
+            .popup {
+                padding: 20px;
+                width: 85%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hati Jatuh -->
+    <div class="hearts" style="top:10%; left:15%">💖</div>
+    <div class="hearts" style="top:80%; left:20%">💗</div>
+    <div class="hearts" style="top:40%; right:15%">💘</div>
+
+    <!-- Popup Surprise -->
+    <div class="popup-overlay" id="popupOverlay"></div>
+    <div class="popup" id="popup">
+        <span class="popup-close" onclick="hidePopup()">×</span>
+        <h2 style="color: #ff6b8b; margin-top: 0;">💖 Surprise! 💖</h2>
+        <p>Aku sayang kamu lebih dari apapun di dunia ini!</p>
+        <p>Kamu adalah orang terbaik yang pernah aku temui ❤️</p>
+    </div>
+
+    <div class="container">
+        <h1>For Kanaya Shafa Aulia</h1>
+        
+        <!-- Section Musik di Atas Foto -->
+        <div class="music-section">
+            <audio id="ourSong" src="lagu.mp3"></audio>
+            <button class="play-btn" onclick="toggleMusic()">
+                <span id="btnText">🎵 Putar Lagu Kita</span>
+            </button>
+        </div>
+        
+        <!-- Foto Kamu -->
+        <img src="foto.jpg" class="foto-kita" alt="Foto Kita">
+        
+        <!-- Surat Cinta dengan Animasi -->
+        <div class="love-letter">
+            <p>Halo sayang,</p>
+            <p>Gila ya, entah kenapa... aku merasa jatuh cinta lagi. Jatuh cinta yang kesekian kalinya—sama orang yang sama, yaitu kamu.</p>
+            <p>Padahal saat aku nulis ini, aku belum lihat kamu tampil. Tapi aku yakin, aku akan jatuh cinta lagi saat melihat kamu berdiri di sana, melakukan yang terbaik.</p>
+            <p>Bukan karena kamu sempurna, tapi karena kamu berani. Karena kamu terus berjuang. Karena kamu gak pernah berhenti jadi versi terbaik dari dirimu.</p>
+            <p>Aku bangga banget sama kamu. Bukan cuma karena pencapaianmu, tapi karena caramu menjalani semuanya. Kamu hebat, bahkan ketika kamu merasa biasa-biasa aja.</p>
+            <p>Menang atau kalah nanti, buatku itu gak pernah jadi ukuran. Karena yang paling aku lihat adalah bagaimana kamu menjalani semuanya—dengan hati, dengan semangat, dan dengan keberanian yang luar biasa.</p>
+            <p>Aku tahu perjalanan kamu gak selalu mudah. Akan ada tanjakan, akan ada halangannya. Tapi tenang... aku akan ada di sini, nemenin kamu di setiap langkahnya.</p>
+            <p>Kamu gak harus selalu kuat sendiri. Karena sekarang, ada aku. Dan aku gak kemana-mana.</p>
+            <p>Semoga semua yang kamu impikan bisa satu per satu tercapai. Tapi kalau pun nanti dunia gak selalu ramah, kamu tetap punya rumah—dan rumah itu bisa kamu temukan di aku.</p>
+            <p>Terima kasih ya, udah jadi sosok yang terus bikin aku jatuh cinta tanpa henti.</p>
+            <p style="text-align: right; font-weight: bold; animation: fadeIn 3s;">Aku sayang kamu, sepenuh-penuhnya.</p>
+        </div>
+        
+        <!-- Tombol Surprise -->
+        <button class="surprise-btn" onclick="showPopup()">💖 Klik Ini!</button>
+    </div>
+
+    <script>
+        // Musik
+        const audio = document.getElementById("ourSong");
+        const btnText = document.getElementById("btnText");
+        
+        function toggleMusic() {
+            if (audio.paused) {
+                audio.play();
+                btnText.textContent = "⏸ Pause Lagu";
+            } else {
+                audio.pause();
+                btnText.textContent = "🎵 Putar Lagu Kita";
+            }
+        }
+        
+        // Efek hati jatuh
+        document.addEventListener('DOMContentLoaded', () => {
+            for (let i = 0; i < 15; i++) {
+                createHeart();
+            }
+        });
+        
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'hearts';
+            heart.innerHTML = ['💖', '💗', '💘'][Math.floor(Math.random() * 3)];
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.top = Math.random() * 100 + '%';
+            heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            document.body.appendChild(heart);
+        }
+        
+        // Popup surprise
+        function showPopup() {
+            document.getElementById("popupOverlay").style.display = "block";
+            document.getElementById("popup").style.display = "block";
+            
+            // Trigger confetti
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 150,
+                    spread: 70,
+                    origin: { y: 0.6 }
+                });
+            }
+        }
+        
+        function hidePopup() {
+            document.getElementById("popupOverlay").style.display = "none";
+            document.getElementById("popup").style.display = "none";
+        }
+    </script>
+    
+    <!-- Library Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+</body>
+</html>
